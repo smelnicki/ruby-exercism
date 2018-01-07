@@ -1,18 +1,19 @@
-class Complement
-  DNA = 'ACGT'.freeze
-  RNA = 'UGCA'.freeze 
-  
-  def self.of_dna(strand)
-    return '' unless is_dna?(strand)
-    strand.tr(DNA, RNA)
-  end
+class String
+  def dna?
+    self.chars.all? { |c| 'ACGT'.include?(c) }
+  end 
+end 
 
-  private
-  def self.is_dna?(strand)
-    strand.chars.all? { |c| DNA.include?(c) }
+module Complement
+  DNA = 'ACGT'.freeze
+  RNA = 'UGCA'.freeze
+
+  def self.of_dna(strand)
+    return '' unless strand.dna?
+    strand.tr(DNA, RNA)
   end
 end
 
 module BookKeeping
   VERSION = 4.freeze
-end 
+end
